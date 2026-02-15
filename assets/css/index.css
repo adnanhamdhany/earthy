@@ -356,6 +356,33 @@ p {
     align-items: center;
     padding: 0 100px;
     background-color: white;
+    position: relative;
+    /* Added for pseudo-elements */
+    overflow: hidden;
+    /* Ensure fades don't spill out */
+}
+
+/* Top and Bottom Fades for Green Creators */
+.green-creators::before,
+.green-creators::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 180px;
+    /* Adjust height for smoothness */
+    z-index: 5;
+    pointer-events: none;
+}
+
+.green-creators::before {
+    top: 0;
+    background: linear-gradient(to bottom, white, transparent);
+}
+
+.green-creators::after {
+    bottom: 0;
+    background: linear-gradient(to top, white, transparent);
 }
 
 .green-creators-content {
@@ -376,16 +403,21 @@ p {
 
 .tag-row {
     display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
+    gap: 6px;
+    /* Reduced gap further */
+    margin-bottom: 8px;
+    /* Slightly reduced margin */
     align-items: center;
 }
 
 .tag-pill {
-    padding: 10px 40px;
-    border: 1px solid black;
+    padding: 8px 30px;
+    /* More compact padding */
+    border: 1.5px solid black;
+    /* Thickened border slightly */
     border-radius: 50px;
-    font-size: 44px;
+    font-size: 48px;
+    /* Slightly larger for impact */
     font-weight: 500;
     color: black;
     background-color: white;
@@ -400,6 +432,8 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 5px;
+    /* Slight offset */
 }
 
 .arrow-circle img {
@@ -408,14 +442,14 @@ p {
 }
 
 .green-creators-description {
-    font-size: 22px;
-    color: #333;
-    max-width: 580px;
-    margin-top: 30px;
-    margin-bottom: 40px;
-    line-height: 1.2;
+    font-size: 24px;
+    color: #000;
+    max-width: 850px;
+    /* Much wider as requested */
+    margin-top: 25px;
+    line-height: 1.1;
     font-weight: 400;
-    letter-spacing: -0.5px;
+    letter-spacing: -1.2px;
 }
 
 .get-inspired-btn {
@@ -427,4 +461,140 @@ p {
     font-size: 24px;
     font-weight: 700;
     cursor: pointer;
+}
+
+/* TikTok Scroll Section */
+.tiktok-section {
+    width: 100%;
+    background-color: white;
+    padding: 80px 0;
+    margin-top: 0;
+    /* Removed margin-top to touch the previous section */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Top Fade/Blur Effect */
+.tiktok-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 250px;
+    /* Increased height for a deeper fade effect */
+    background: linear-gradient(to bottom, white, transparent);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.tiktok-container {
+    width: 100%;
+    position: relative;
+}
+
+/* Side Fade/Blur Effect */
+.tiktok-container::before,
+.tiktok-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 250px;
+    /* Width of the fade/blur effect */
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.tiktok-container::before {
+    left: 0;
+    background: linear-gradient(to right, white, transparent);
+}
+
+.tiktok-container::after {
+    right: 0;
+    background: linear-gradient(to left, white, transparent);
+}
+
+.tiktok-track {
+    display: flex;
+    gap: 30px;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+    padding: 20px 0;
+}
+
+/* Pause animation on hover */
+.tiktok-track:hover {
+    animation-play-state: paused;
+}
+
+.tiktok-card {
+    flex: 0 0 280px;
+    /* Standard TikTok card width */
+    aspect-ratio: 9 / 16;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    display: block;
+}
+
+.tiktok-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    z-index: 10;
+}
+
+.tiktok-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        /* Move by the width of the first 7 cards + their gaps */
+        /* Each card is 280px + 30px gap = 310px. 7 cards = 2170px */
+        transform: translateX(calc(-310px * 7));
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1400px) {
+    .tiktok-card {
+        flex: 0 0 240px;
+    }
+
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(calc(-270px * 7));
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .tiktok-card {
+        flex: 0 0 200px;
+    }
+
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(calc(-230px * 7));
+        }
+    }
 }
